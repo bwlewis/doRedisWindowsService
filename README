@@ -1,0 +1,41 @@
+A Simple Windows doRedis R Service for Windows
+
+This service maintains a set of running R doRedis worker processes. The number
+of processes, Redis job queue name, and other configuration parameters are set
+in the rworkers.ini file outlined below. If a worker exits for any reason, the
+service starts a new one to maintain the indicated number of workers.
+
+The service operates as a standard Windows service. It may be controlled from
+the services control panel or from a DOS terminal with the 'sc' command.
+
+
+Installation Using the MSI Package
+
+First make sure that R is installed on your system. Then Run doRedis.msi to
+launch a standard Microsoft installer. During the installation process, you
+will need to indicate which  version of R to use and where it's located.
+
+Once installed you'll need to edit the 'doRedis.ini' file to reflect
+your local configuration. By default, this file is located in the installed
+path of the service from the last step.
+
+Each configuration setting appears in rworkers.ini on one line using
+DOS environment variable style assignment, that is, everything before
+the equals sign defines a symbol name (including spaces), and everything
+after the equals sign defines a value (again, including spaces).
+
+The available configuration parameters are:
+
+Np              Number of R workers to run
+Rterm           Full path to the Rterm.exe program to use (no quotes)
+RedisJobQueue   The Redis job queue name
+RedisHost       The Redis server host name or IP address
+RedisPort       The Redis server port number
+
+EXAMPLE
+
+Np=4
+Rterm=c:\Program Files\R\R-2.12.0\bin\x64\Rterm.exe
+RedisJobQueue=RJOBS
+RedisHost=localhost
+RedisPort=6379
